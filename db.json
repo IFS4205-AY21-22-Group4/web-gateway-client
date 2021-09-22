@@ -1,0 +1,30 @@
+{
+  "gateways": [
+    {
+      "id": 1,
+      "gateway_id": "610123-13-37-1"
+    },
+    {
+      "id": 2,
+      "gateway_id": "610123-13-37-2"
+    },
+    {
+      "id": 3,
+      "gateway_id": "610123-13-37-3"
+    }
+  ],
+  "gatewayrecords": [
+    {
+      "id": 1,
+      "token_uuid": "c3c5feb8-6856-4ca3-b3b9-274586965c78",
+      "gateway_id": 1,
+      "timestamp": "2021-08-01 09:53:00.000000"
+    },
+    {
+      "id": 2,
+      "token_uuid": "c3c5feb8-6856-4ca3-b3b9-274586965c78",
+      "gateway_id": 3,
+      "timestamp": "2021-08-02 12:10:00.000000"
+    }
+  ]
+}
