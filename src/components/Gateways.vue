@@ -1,22 +1,41 @@
 <template>
   <div class="container">
-    <h2>Gateways</h2>
-    <table>
-      <tr>
-        <th>#</th>
-        <th>Gateway ID</th>
-        <th>Actions</th>
-      </tr>
-      <tr :key="gateway.id" v-for="gateway in gateways">
-        <Gateway
-          @toggle-gateway="$emit('toggle-gateway', gateway.gateway_id)"
-          :gateway="gateway"
-          :gatewayRunning="gatewayRunning"
-        />
-      </tr>
+    <h3>Gateways</h3>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Gateway ID</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr :key="gateway.id" v-for="gateway in gateways">
+          <Gateway
+            @toggle-gateway="$emit('toggle-gateway', gateway.gateway_id)"
+            :gateway="gateway"
+            :gatewayRunning="gatewayRunning"
+          />
+        </tr>
+      </tbody>
     </table>
-    <Button @click="$emit('add-gateway')" text="Add Gateway" />
-    <Button @click="$emit('remove-gateway')" text="Remove Gateway" />
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <Button
+            class="btn-outline-success"
+            @click="$emit('add-gateway')"
+            text="Add Gateway"
+          />
+          <Button
+            class="btn-outline-danger"
+            @click="$emit('remove-gateway')"
+            text="Remove Gateway"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

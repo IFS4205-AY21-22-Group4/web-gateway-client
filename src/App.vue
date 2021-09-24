@@ -1,21 +1,21 @@
 <template>
-  <div class="container">
-    <Header title="Web Gateway Client" />
+  <div class="app">
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Header from "./components/Header";
-
 export default {
   name: "App",
-  components: {
-    Header,
-  },
+  components: {},
   methods: {},
 };
 </script>
 
 <style>
+body {
+  margin: 0;
+  padding: 0;
+  color: #f8f8f8;
+}
 </style>

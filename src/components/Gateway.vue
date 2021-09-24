@@ -1,8 +1,9 @@
 <template>
-  <th>{{ gateway.id }}</th>
+  <th scope="row">{{ gateway.id }}</th>
   <th>{{ gateway.gateway_id }}</th>
   <th>
     <Button
+      class="btn-outline-dark"
       @click="$emit('toggle-gateway', gateway.gateway_id)"
       :text="gateway.gateway_id === gatewayRunning ? 'Stop' : 'Start'"
     />

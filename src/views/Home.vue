@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <Gateways
     @add-gateway="addGateway"
     @remove-gateway="removeGateway"
@@ -9,11 +10,14 @@
 </template>
 
 <script>
+import { gatewayAPI } from "@/axios-api";
+import Navbar from "@/components/Navbar";
 import Gateways from "../components/Gateways";
 
 export default {
   name: "Home",
   components: {
+    Navbar,
     Gateways,
   },
   data() {
@@ -23,41 +27,38 @@ export default {
     };
   },
   methods: {
-    async addGateway() {
+    addGateway() {
       const totalGateways = this.gateways.length;
       const index = totalGateways + 1;
-      const gatewayToAdd = {
-        id: index,
-        gateway_id: "610123-13-37-" + index,
-      };
 
-      const res = await fetch("api/gateways/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(gatewayToAdd),
-      });
-
-      const data = await res.json();
-
-      this.gateways = [...this.gateways, data];
+      gatewayAPI
+        .post("/gateways/", {
+          id: index,
+          gateway_id: "610123-13-37-" + index,
+        })
+        .then((response) => {
+          this.gateways = [...this.gateways, response.data];
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     async removeGateway() {
       const totalGateways = this.gateways.length;
       const id = totalGateways; // bad way to get id
 
-      const res = await fetch(`api/gateways/${id}`, {
-        method: "DELETE",
-      });
-
-      res.status === 200
-        ? (this.gateways = this.gateways.filter(
+      gatewayAPI
+        .delete(`/gateways/${id}`)
+        .then((response) => {
+          this.gateways = this.gateways.filter(
             (gateway) =>
               gateway.gateway_id !==
               gateway.gateway_id.slice(0, -1) + totalGateways
-          ))
-        : alert("Error deleting gateway");
+          );
+        })
+        .catch((error) => {
+          alert("Error deleting gateway");
+        });
     },
     toggleGateway(gateway_id) {
       if (this.gatewayRunning === "") {
@@ -70,14 +71,20 @@ export default {
         console.log(`Gateway ${this.gatewayRunning} stopped.`);
       }
     },
-    async fetchGateways() {
-      const res = await fetch("api/gateways/");
-      const data = await res.json();
-      return data;
+    fetchGateways() {
+      gatewayAPI
+        .get("/gateways/")
+        .then((response) => {
+          console.log("Received data from gateway API");
+          this.gateways = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
-  async created() {
-    this.gateways = await this.fetchGateways();
+  created() {
+    this.fetchGateways();
   },
 };
 </script>
