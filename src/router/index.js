@@ -1,11 +1,26 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
+import Home from "@/views/Home.vue";
+import Login from "@/views/Login.vue";
+import Logout from "@/views/Logout.vue";
 
 const routes = [
     {
         path: "/",
         name: "Home",
-        component: Home
+        component: Home,
+        meta: {
+            requiresLogin: true,
+        }
+    },
+    {
+        path: "/login",
+        name: "Login",
+        component: Login
+    },
+    {
+        path: "/logout",
+        name: "Logout",
+        component: Logout
     },
     {
         path: "/about",
@@ -20,6 +35,18 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresLogin)) {
+        if (sessionStorage.getItem("token") === null) {
+            next({ name: "Login" });
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
 });
 
 export default router;

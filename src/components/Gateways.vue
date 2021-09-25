@@ -11,10 +11,11 @@
       </thead>
 
       <tbody>
-        <tr :key="gateway.id" v-for="gateway in gateways">
+        <tr :key="gateway.gateway_id" v-for="(gateway, index) in gateways">
           <Gateway
             @toggle-gateway="$emit('toggle-gateway', gateway.gateway_id)"
             :gateway="gateway"
+            :index="index"
             :gatewayRunning="gatewayRunning"
           />
         </tr>

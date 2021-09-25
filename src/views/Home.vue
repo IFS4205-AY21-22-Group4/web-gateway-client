@@ -28,14 +28,16 @@ export default {
   },
   methods: {
     addGateway() {
-      const totalGateways = this.gateways.length;
-      const index = totalGateways + 1;
-
       gatewayAPI
-        .post("/gateways/", {
-          id: index,
-          gateway_id: "610123-13-37-" + index,
-        })
+        .post(
+          "/api/v1/gateways/",
+          {},
+          {
+            headers: {
+              Authorization: `Token ${sessionStorage.getItem("token")}`,
+            },
+          }
+        )
         .then((response) => {
           this.gateways = [...this.gateways, response.data];
         })
@@ -43,21 +45,20 @@ export default {
           console.log(error);
         });
     },
-    async removeGateway() {
-      const totalGateways = this.gateways.length;
-      const id = totalGateways; // bad way to get id
-
+    removeGateway() {
       gatewayAPI
-        .delete(`/gateways/${id}`)
+        .delete("/api/v1/gateways/", {
+          headers: {
+            Authorization: `Token ${sessionStorage.getItem("token")}`,
+          },
+        })
         .then((response) => {
-          this.gateways = this.gateways.filter(
-            (gateway) =>
-              gateway.gateway_id !==
-              gateway.gateway_id.slice(0, -1) + totalGateways
-          );
+          this.gateways = this.gateways.filter((gateway) => {
+            return gateway.gateway_id !== response.data.gateway_id;
+          });
         })
         .catch((error) => {
-          alert("Error deleting gateway");
+          console.log(error);
         });
     },
     toggleGateway(gateway_id) {
@@ -73,7 +74,11 @@ export default {
     },
     fetchGateways() {
       gatewayAPI
-        .get("/gateways/")
+        .get("/api/v1/gateways/", {
+          headers: {
+            Authorization: `Token ${sessionStorage.getItem("token")}`,
+          },
+        })
         .then((response) => {
           console.log("Received data from gateway API");
           this.gateways = response.data;

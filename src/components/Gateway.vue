@@ -1,5 +1,5 @@
 <template>
-  <th scope="row">{{ gateway.id }}</th>
+  <th scope="row">{{ index + 1 }}</th>
   <th>{{ gateway.gateway_id }}</th>
   <th>
     <Button
@@ -17,6 +17,7 @@ export default {
   name: "Gateway",
   props: {
     gateway: Object,
+    index: Number,
     gatewayRunning: String,
   },
   components: {
