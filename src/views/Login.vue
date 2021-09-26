@@ -1,17 +1,23 @@
 <template>
-  <div class="container"></div>
-  <form class="login" @submit.prevent="login">
-    <h1>Sign in</h1>
-    <label>User name</label>
-    <input required v-model="email" type="text" placeholder="Email" />
-    <label>Password</label>
-    <input required v-model="password" type="password" placeholder="Password" />
-    <p class="text-danger" v-if="authenticationFailed">
-      Incorrect username or password.
-    </p>
-    <hr />
-    <button type="submit">Login</button>
-  </form>
+  <div class="container">
+    <form class="login" @submit.prevent="login">
+      <h1>Sign in</h1>
+      <label>User name</label>
+      <input required v-model="email" type="text" placeholder="Email" />
+      <label>Password</label>
+      <input
+        required
+        v-model="password"
+        type="password"
+        placeholder="Password"
+      />
+      <p class="text-danger" v-if="authenticationFailed">
+        Incorrect username or password.
+      </p>
+      <hr />
+      <button type="submit">Login</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -28,18 +34,6 @@ export default {
   },
   methods: {
     login() {
-      // this.$store
-      //   .dispatch("userLogin", {
-      //     username: this.email,
-      //     password: this.password,
-      //   })
-      //   .then(() => {
-      //     this.$router.push({ name: "Home" });
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     this.authenticationFailed = true;
-      //   });
       gatewayAPI
         .post("/api/login/", {
           username: this.email,
@@ -48,12 +42,18 @@ export default {
         .then((response) => {
           console.log("Login success");
           sessionStorage.setItem("token", response.data.token);
+          this.$router.push({ name: "Home" });
         })
         .catch((error) => {
-          console.log(error);
-          console.log("Login fail");
+          console.log("Login failed");
+          this.authenticationFailed = true;
         });
     },
+  },
+  created() {
+    if (sessionStorage.getItem("token") !== null) {
+      this.$router.push({ name: "Home" });
+    }
   },
 };
 </script>

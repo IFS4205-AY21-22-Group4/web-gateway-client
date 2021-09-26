@@ -20,7 +20,10 @@ const routes = [
     {
         path: "/logout",
         name: "Logout",
-        component: Logout
+        component: Logout,
+        meta: {
+            requiresLogin: true,
+        }
     },
     {
         path: "/about",

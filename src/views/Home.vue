@@ -1,5 +1,4 @@
 <template>
-  <Navbar />
   <Gateways
     @add-gateway="addGateway"
     @remove-gateway="removeGateway"
@@ -11,13 +10,11 @@
 
 <script>
 import { gatewayAPI } from "@/axios-api";
-import Navbar from "@/components/Navbar";
 import Gateways from "../components/Gateways";
 
 export default {
   name: "Home",
   components: {
-    Navbar,
     Gateways,
   },
   data() {
@@ -85,6 +82,11 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          // token probably expired
+          if (error.response.status === 401) {
+            sessionStorage.removeItem("token");
+            this.$router.push({ name: "Login" });
+          }
         });
     },
   },

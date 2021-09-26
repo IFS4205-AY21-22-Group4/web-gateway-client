@@ -2,26 +2,19 @@
   <div class="nav-bar">
     <nav class="navbar navbar-expand navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Web Gateway</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <router-link :to="{ name: 'Home' }" class="nav-link" exact
-                >Home</router-link
-              >
-            </li>
-          </ul>
+        <span class="navbar-brand mb-0 h1">Web Gateway</span>
+
+        <div class="collapse navbar-collapse">
+          <div class="navbar-nav">
+            <router-link :to="{ name: 'Home' }" class="nav-link" exact
+              >Home</router-link
+            >
+          </div>
+        </div>
+        <div class="navbar-nav">
+          <router-link :to="{ name: 'Logout' }" class="nav-link" exact>
+            Logout
+          </router-link>
         </div>
       </div>
     </nav>
@@ -33,3 +26,6 @@ export default {
   name: "Navbar",
 };
 </script>
+
+<style scoped>
+</style>
