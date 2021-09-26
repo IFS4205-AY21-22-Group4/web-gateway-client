@@ -1,26 +1,31 @@
 <template>
   <div class="container">
-    <h3>Gateways</h3>
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Gateway ID</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
+    <div class="text-center m-3">
+      <h1>Gateways</h1>
+    </div>
+    <div class="col-md-8 offset-md-2">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Gateway ID</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr :key="gateway.gateway_id" v-for="(gateway, index) in gateways">
-          <Gateway
-            @toggle-gateway="$emit('toggle-gateway', gateway.gateway_id)"
-            :gateway="gateway"
-            :index="index"
-            :gatewayRunning="gatewayRunning"
-          />
-        </tr>
-      </tbody>
-    </table>
+        <tbody>
+          <tr :key="gateway.gateway_id" v-for="(gateway, index) in gateways">
+            <Gateway
+              @toggle-gateway="$emit('toggle-gateway', gateway.gateway_id)"
+              :gateway="gateway"
+              :index="index"
+              :gatewayRunning="gatewayRunning"
+            />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <div class="container">
       <div class="row">
         <div class="col text-center">

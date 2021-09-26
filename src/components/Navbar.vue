@@ -1,7 +1,7 @@
 <template>
   <div class="nav-bar">
     <nav class="navbar navbar-expand navbar-light bg-light">
-      <div class="container-fluid">
+      <div class="container">
         <span class="navbar-brand mb-0 h1">Web Gateway</span>
 
         <div class="collapse navbar-collapse">

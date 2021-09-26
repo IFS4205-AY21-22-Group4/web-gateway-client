@@ -1,22 +1,39 @@
 <template>
   <div class="container">
-    <form class="login" @submit.prevent="login">
+    <div class="text-center m-3">
       <h1>Sign in</h1>
-      <label>User name</label>
-      <input required v-model="email" type="text" placeholder="Email" />
-      <label>Password</label>
-      <input
-        required
-        v-model="password"
-        type="password"
-        placeholder="Password"
-      />
-      <p class="text-danger" v-if="authenticationFailed">
-        Incorrect username or password.
-      </p>
-      <hr />
-      <button type="submit">Login</button>
-    </form>
+    </div>
+    <div class="col-md-4 offset-md-4">
+      <form @submit.prevent="login">
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input class="form-control" required v-model="email" type="text" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input
+            class="form-control"
+            required
+            v-model="password"
+            type="password"
+          />
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </div>
+        <p class="text-center text-danger" v-if="authenticationFailed">
+          Incorrect username or password.
+        </p>
+        <p class="text-center">
+          New user?
+          <router-link :to="{ name: 'Login' }" exact>
+            Click here to sign up.
+          </router-link>
+        </p>
+        <hr />
+      </form>
+    </div>
   </div>
 </template>
 
@@ -47,6 +64,7 @@ export default {
         .catch((error) => {
           console.log("Login failed");
           this.authenticationFailed = true;
+          this.password = "";
         });
     },
   },
