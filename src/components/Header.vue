@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="text-center m-3">
     <h1>{{ title }}</h1>
   </header>
 </template>
@@ -10,7 +10,6 @@ export default {
   props: {
     title: String,
   },
-  components: {},
 };
 </script>
 

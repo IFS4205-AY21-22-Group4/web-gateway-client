@@ -1,13 +1,16 @@
 <template>
-  <th scope="row">{{ index + 1 }}</th>
-  <th>{{ gateway.gateway_id }}</th>
-  <th>
+  <td scope="row">{{ index + 1 }}</td>
+  <td>{{ gateway.gateway_id }}</td>
+  <td class="text-center">
+    <i class="fas fa-solid fa-circle text-success"></i>
+  </td>
+  <td>
     <Button
       class="btn-outline-dark"
-      @click="$emit('toggle-gateway', gateway.gateway_id)"
+      @click="toggleGateway"
       :text="gateway.gateway_id === gatewayRunning ? 'Stop' : 'Start'"
     />
-  </th>
+  </td>
 </template>
 
 <script>
@@ -15,14 +18,38 @@ import Button from "./Button";
 
 export default {
   name: "Gateway",
+  data() {
+    return {
+      gatewayRunning: "",
+    };
+  },
   props: {
     gateway: Object,
     index: Number,
-    gatewayRunning: String,
   },
   components: {
     Button,
   },
-  emits: ["toggle-gateway"],
+  methods: {
+    toggleGateway() {
+      if (sessionStorage.getItem("gatewayRunning") === null) {
+        sessionStorage.setItem("gatewayRunning", this.gateway.gateway_id);
+        this.$router.push({ name: "Discovery" });
+      } else {
+        sessionStorage.removeItem("gatewayRunning");
+        this.gatewayRunning = "";
+      }
+    },
+  },
+  created() {
+    if (sessionStorage.getItem("gatewayRunning")) {
+      this.gatewayRunning = sessionStorage.getItem("gatewayRunning");
+    } else {
+      this.$router.push({ name: "Home" });
+    }
+  },
 };
 </script>
+
+<style scoped>
+</style>

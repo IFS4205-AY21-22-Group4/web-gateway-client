@@ -1,26 +1,26 @@
 <template>
+  <Header title="Gateways" />
   <Gateways
     @add-gateway="addGateway"
     @remove-gateway="removeGateway"
-    @toggle-gateway="toggleGateway"
     :gateways="gateways"
-    :gatewayRunning="gatewayRunning"
   />
 </template>
 
 <script>
 import { gatewayAPI } from "@/axios-api";
+import Header from "@/components/Header";
 import Gateways from "../components/Gateways";
 
 export default {
   name: "Home",
   components: {
     Gateways,
+    Header,
   },
   data() {
     return {
       gateways: [],
-      gatewayRunning: "",
     };
   },
   methods: {
@@ -58,17 +58,6 @@ export default {
           console.log(error);
         });
     },
-    toggleGateway(gateway_id) {
-      if (this.gatewayRunning === "") {
-        this.gatewayRunning = gateway_id;
-
-        console.log(`Gateway ${this.gatewayRunning} running.`);
-      } else if (this.gatewayRunning === gateway_id) {
-        this.gatewayRunning = "";
-
-        console.log(`Gateway ${this.gatewayRunning} stopped.`);
-      }
-    },
     fetchGateways() {
       gatewayAPI
         .get("/api/v1/gateways/", {
@@ -92,6 +81,9 @@ export default {
   },
   created() {
     this.fetchGateways();
+    if (sessionStorage.getItem("gatewayRunning")) {
+      sessionStorage.removeItem("gatewayRunning");
+    }
   },
 };
 </script>

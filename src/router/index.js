@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
+import Discovery from "@/views/Discovery.vue";
 import Login from "@/views/Login.vue";
 import Logout from "@/views/Logout.vue";
 
@@ -9,6 +10,14 @@ const routes = [
         name: "Home",
         component: Home,
         meta: {
+            requiresLogin: true,
+        }
+    },
+    {
+        path: "/discovery",
+        name: "Discovery",
+        component: Discovery,
+        meta : {
             requiresLogin: true,
         }
     },
