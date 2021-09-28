@@ -17,10 +17,9 @@ export default {
 };
 </script>
 
-<style>
+<style >
 body {
   margin: 0;
   padding: 0;
-  color: #f8f8f8;
 }
 </style>
