@@ -14,11 +14,4 @@ jobs:
           node-version: '14'
       - run: npm install
       - run: npm test
-      - name: Build and push Docker image
-        uses: mr-smithers-excellent/docker-build-push@v5
-        with:
-          image: isaharon/ifs4205-web-gateway-client
-          registry: docker.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
       
