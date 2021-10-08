@@ -1,14 +1,24 @@
 {
   "name": "ifs4205-web-gateway-client",
-  "version": "1.0.0",
-  "description": "Web Gateway Client for IFS4205",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "backend": "json-server --watch db.json --port 5000"
   },
-  "author": "Isa Haron",
-  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "bootstrap": "^5.1.1",
+    "core-js": "^3.18.0",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.2"
+  },
   "devDependencies": {
-    "eslint": "^7.32.0"
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0"
   }
 }
