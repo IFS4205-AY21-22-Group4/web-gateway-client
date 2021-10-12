@@ -2,27 +2,28 @@
   <td scope="row">{{ index + 1 }}</td>
   <td>{{ gateway.gateway_id }}</td>
   <td class="text-center">
-    <i class="fas fa-solid fa-circle text-success"></i>
+    <i
+      class="fas fa-solid fa-circle"
+      :class="
+        gateway.authentication_token === null ? 'text-success' : 'text-danger'
+      "
+    ></i>
   </td>
   <td>
     <Button
       class="btn-outline-dark"
       @click="toggleGateway"
-      :text="gateway.gateway_id === gatewayRunning ? 'Stop' : 'Start'"
+      :text="gateway.authentication_token === null ? 'Start' : 'Stop'"
     />
   </td>
 </template>
 
 <script>
+import { gatewayAPI } from "@/axios-api";
 import Button from "./Button";
 
 export default {
   name: "Gateway",
-  data() {
-    return {
-      gatewayRunning: "",
-    };
-  },
   props: {
     gateway: Object,
     index: Number,
@@ -32,24 +33,25 @@ export default {
   },
   methods: {
     toggleGateway() {
-      if (sessionStorage.getItem("gatewayRunning") === null) {
-        sessionStorage.setItem("gatewayRunning", this.gateway.gateway_id);
-        this.$router.push({ name: "Discovery" });
-      } else {
-        sessionStorage.removeItem("gatewayRunning");
-        this.gatewayRunning = "";
-      }
+      gatewayAPI
+        .put(
+          `/api/v1/gateways/${this.gateway.id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Token ${sessionStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then((response) => {
+          this.gateway.authentication_token =
+            response.data.authentication_token;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
-  created() {
-    if (sessionStorage.getItem("gatewayRunning")) {
-      this.gatewayRunning = sessionStorage.getItem("gatewayRunning");
-    } else {
-      this.$router.push({ name: "Home" });
-    }
-  },
+  created() {},
 };
 </script>
-
-<style scoped>
-</style>
