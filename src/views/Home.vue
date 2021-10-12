@@ -81,9 +81,6 @@ export default {
   },
   created() {
     this.fetchGateways();
-    if (sessionStorage.getItem("gatewayRunning")) {
-      sessionStorage.removeItem("gatewayRunning");
-    }
   },
 };
 </script>

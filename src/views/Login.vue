@@ -20,7 +20,7 @@
           />
         </div>
         <div class="mb-3">
-          <button type="submit" class="btn btn-primary w-100">Login</button>
+          <button type="submit" class="btn btn-primary w-100">Log In</button>
         </div>
         <p class="text-center text-danger" v-if="authenticationFailed">
           Incorrect username or password.
