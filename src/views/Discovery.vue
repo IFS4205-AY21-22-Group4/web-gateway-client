@@ -1,13 +1,7 @@
 <template>
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Holy guacamole!</strong> You should check in on some of those fields
-    below.
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="alert"
-      aria-label="Close"
-    ></button>
+  <div class="text-center alert alert-success show" role="alert">
+    Gateway <strong> {{ $route.params.gateway_id }}</strong> is running and
+    discovering tokens around nearby proximity.
   </div>
 
   <Header title="Tokens Discovered" />
@@ -25,6 +19,7 @@
 </template>
 
 <script>
+import { localAPI } from "../axios-api";
 import Header from "@/components/Header";
 import Tokens from "@/components/Tokens";
 
@@ -37,10 +32,25 @@ export default {
   data() {
     return {
       tokens: [],
+      timer: null,
     };
   },
+  methods: {
+    discoverTokens() {
+      localAPI
+        .get("/discover_tokens", {})
+        .then((response) => {
+          console.log("Received data from local API");
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
   created() {
-    this.tokens = [{ uuid: "test" }];
+    this.discoverTokens();
+    //this.tokens = [{ uuid: "test" }, { uuid: "test2" }];
   },
 };
 </script>
