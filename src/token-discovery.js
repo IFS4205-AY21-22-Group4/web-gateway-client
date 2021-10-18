@@ -16,8 +16,9 @@ app.get("/discover_tokens", (req, res, next) => {
             console.log(`stderr: ${stderr}`);
             return;
         }
-        console.log(`stdout: ${stdout}`);
-        res.json(stdout);
+        //console.log(`stdout: ${stdout}`);
+        res.set("Content-Type", "application/json");
+        res.send(stdout);
     });
 });
 
