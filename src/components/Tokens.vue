@@ -4,7 +4,7 @@
       <table class="table table-striped table-hover align-middle">
         <thead>
           <th class="scoped">#</th>
-          <th class="scoped">Owner</th>
+          <th class="scoped">Identity</th>
           <th class="scoped">Actions</th>
         </thead>
 
