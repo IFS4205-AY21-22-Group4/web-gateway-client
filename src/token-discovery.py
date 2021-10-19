@@ -5,7 +5,7 @@ import json
 def discover_tokens():
     radio = BLERadio()
     tokens = set()
-    for entry in radio.start_scan(timeout=3, minimum_rssi=-70):
+    for entry in radio.start_scan(timeout=2, minimum_rssi=-80):
         addr = entry.address
         name = entry.complete_name
         if addr not in tokens and name != None and "Thing" in name:

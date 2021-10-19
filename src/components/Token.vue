@@ -1,6 +1,6 @@
 <template>
   <td scope="row">{{ index + 1 }}</td>
-  <td>{{ identity }}</td>
+  <td>{{ token.nric }}</td>
   <td>
     <Button
       class="btn btn-outline-success"
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import { gatewayAPI } from "../axios-api";
 import Button from "@/components/Button";
 
 export default {
@@ -22,34 +21,11 @@ export default {
     token: Object,
     index: Number,
   },
-  data() {
-    return {
-      identity: "",
-    };
-  },
   components: {
     Button,
   },
-  methods: {
-    getIdentity() {
-      gatewayAPI
-        .get(`/api/v1/token/${this.token.uuid}`, {
-          headers: {
-            Authorization: `Token ${sessionStorage.getItem("token")}`,
-          },
-        })
-        .then((response) => {
-          console.log("Received data from gateway API");
-          this.identity = response.data.nric;
-        })
-        .catch((error) => {
-          this.identity = "Unknown";
-          console.log(error);
-        });
-    },
-  },
   created() {
-    this.getIdentity();
+    //this.getIdentity();
     // to replace with token logic
   },
   emits: ["verify-token"],

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { localAPI } from "../axios-api";
+import { localAPI, gatewayAPI } from "../axios-api";
 import Header from "@/components/Header";
 import Tokens from "@/components/Tokens";
 
@@ -36,12 +36,30 @@ export default {
     };
   },
   methods: {
+    checkToken(token) {
+      gatewayAPI
+        .get(`/api/v1/token/${token.uuid}`, {
+          headers: {
+            Authorization: `Token ${sessionStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          //console.log("Received data from local API");
+          this.tokens.push(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     discoverTokens() {
       localAPI
         .get("/discover_tokens", {})
         .then((response) => {
-          console.log("Received data from local API");
-          this.tokens = response.data;
+          //console.log("Received data from local API");
+          var tokens = response.data;
+          for (var i = 0; i < tokens.length; i++) {
+            this.checkToken(tokens[i]);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -49,8 +67,7 @@ export default {
     },
   },
   created() {
-    var discovered_tokens = this.discoverTokens();
-    // Get
+    this.discoverTokens();
   },
 };
 </script>
