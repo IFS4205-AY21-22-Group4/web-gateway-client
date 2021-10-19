@@ -41,7 +41,6 @@ export default {
         .get("/discover_tokens", {})
         .then((response) => {
           console.log("Received data from local API");
-          console.log(response.data);
           this.tokens = JSON.parse(response.data);
         })
         .catch((error) => {
