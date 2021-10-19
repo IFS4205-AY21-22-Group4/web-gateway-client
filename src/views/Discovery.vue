@@ -48,10 +48,17 @@ export default {
           console.log(error);
         });
     },
+    pollTokens() {
+      this.timer = setInterval(function() {
+        this.discoverTokens()
+      }.bind(this), 10000)
+    },
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
   },
   created() {
-    this.discoverTokens();
-    this.timer = setInterval(this.discoverTokens(), 5000)
+    this.pollTokens();
     //this.tokens = [{ uuid: "test" }, { uuid: "test2" }];
   },
 };
