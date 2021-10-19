@@ -5,7 +5,7 @@
   </div>
 
   <Header title="Tokens Discovered" />
-  <Tokens :tokens="tokens" />
+  <Tokens :tokens="tokens" :gateway_id="gateway_id" />
 
   <div class="text-center">
     <div
@@ -33,6 +33,7 @@ export default {
     return {
       tokens: [],
       timer: null,
+      gateway_id: this.$route.params.gateway_id
     };
   },
   methods: {

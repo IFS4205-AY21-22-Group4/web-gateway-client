@@ -10,7 +10,7 @@
 
         <tbody>
           <tr :key="token.uuid" v-for="(token, index) in tokens">
-            <Token :index="index" :token="token" />
+            <Token :index="index" :token="token" :gateway_id="gateway_id"/>
           </tr>
         </tbody>
       </table>
@@ -25,6 +25,7 @@ export default {
   name: "Tokens",
   props: {
     tokens: Array,
+    gateway_id: String,
   },
   components: {
     Token,

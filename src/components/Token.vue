@@ -5,6 +5,7 @@
     <Button 
       class="btn btn-outline-success"
       text="Check-in"
+      @click="userCheckIn"
     />
   </td>
 </template>
@@ -18,6 +19,7 @@ export default {
   props: {
     token: Object,
     index: Number,
+    gateway_id: String,
   },
   data() {
     return {
@@ -45,6 +47,12 @@ export default {
           console.log(error);
         });
     },
+    userCheckIn() {
+      this.$router.push({
+        name: "UserAuth",
+        params: { user: this.identity, token: this.token.name, gateway_id: this.gateway_id },
+      });
+    }
   },
   created() {
     this.retrieveUserInfo();
