@@ -49,7 +49,8 @@ export default {
     },
   },
   created() {
-    this.discoverTokens();
+    var discovered_tokens = this.discoverTokens();
+    // Get
   },
 };
 </script>

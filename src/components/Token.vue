@@ -2,7 +2,13 @@
   <td scope="row">{{ index + 1 }}</td>
   <td>{{ identity }}</td>
   <td>
-    <Button class="btn btn-outline-success" text="Check-in" />
+    <Button
+      class="btn btn-outline-success"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+      @click="$emit('verify-token', token)"
+      text="Check-in"
+    />
   </td>
 </template>
 
@@ -34,7 +40,6 @@ export default {
         })
         .then((response) => {
           console.log("Received data from gateway API");
-          console.log(response.data);
           this.identity = response.data.nric;
         })
         .catch((error) => {
@@ -46,7 +51,7 @@ export default {
   created() {
     this.getIdentity();
     // to replace with token logic
-    //this.identity = "S****152G";
   },
+  emits: ["verify-token"],
 };
 </script>
