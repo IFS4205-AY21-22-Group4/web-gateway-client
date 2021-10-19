@@ -1,21 +1,34 @@
 from adafruit_ble import BLERadio
+import re
 import json
 
+radio = BLERadio()
 
-def discover_tokens():
-    radio = BLERadio()
-    tokens = set()
-    for entry in radio.start_scan(timeout=3, minimum_rssi=-60):
+def extract_address(address):
+    try:
+        add = re.search('\"(.+?)\"', str(address)).group(1)
+    except AttributeError:
+        add = ''
+    return add  
+
+def scan(found):
+    for entry in radio.start_scan(timeout=3, minimum_rssi=-80):
         addr = entry.address
-        if addr not in tokens and "Thing" in entry.complete_name:
-            tokens.add(addr.string)
+        address = extract_address(addr)
+        name = str(entry.complete_name)
+        if (address, name) not in found:
+            if "IFS4205" in name:
+                found.add((address, name))
 
-    return tokens
-
+def outputList(found):
+    tokens = []
+    for token in found:
+        data = {}
+        data["name"] = token[1]
+        tokens.insert(0, data)
+    print(json.dumps(tokens))
 
 if __name__ == "__main__":
-    tokens = discover_tokens()
-    data = {}
-    for token in tokens:
-        data["uuid"] = token
-    print(json.dumps(data))
+    found = set()
+    scan(found)
+    outputList(found)

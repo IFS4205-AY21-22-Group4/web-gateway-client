@@ -42,6 +42,7 @@ export default {
         .then((response) => {
           console.log("Received data from local API");
           console.log(response.data);
+          this.tokens = JSON.parse(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -50,6 +51,7 @@ export default {
   },
   created() {
     this.discoverTokens();
+    this.timer = setInterval(this.discoverTokens(), 5000)
     //this.tokens = [{ uuid: "test" }, { uuid: "test2" }];
   },
 };

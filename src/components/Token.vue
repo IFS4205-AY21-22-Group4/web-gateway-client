@@ -25,7 +25,7 @@ export default {
   },
   created() {
     // to replace with token logic
-    this.identity = "S****152G";
+    this.identity = this.token.name;
   },
 };
 </script>
