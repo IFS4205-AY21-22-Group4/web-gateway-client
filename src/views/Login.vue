@@ -27,7 +27,7 @@
         </p>
         <p class="text-center">
           New user?
-          <router-link :to="{ name: 'Login' }" exact>
+          <router-link :to="{ name: 'Register' }" exact>
             Click here to sign up.
           </router-link>
         </p>
