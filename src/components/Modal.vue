@@ -20,7 +20,7 @@
         </div>
         <div class="modal-body" v-if="token">
           <div class="modal-body">
-            <p>Please enter your Token PIN to verify that your identity.</p>
+            <p>Please enter your Token PIN to verify your identity.</p>
             <p><strong>Identity</strong>: {{ token.nric }}</p>
             <p><strong>Status</strong>: {{ status }}</p>
             <form @submit.prevent="verifyToken">

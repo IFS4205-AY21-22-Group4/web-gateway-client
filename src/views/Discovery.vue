@@ -55,7 +55,7 @@ export default {
       localAPI
         .get("/discover_tokens", {})
         .then((response) => {
-          //console.log("Received data from local API");
+          this.tokens = [];
           var tokens = response.data;
           for (var i = 0; i < tokens.length; i++) {
             this.checkToken(tokens[i]);
@@ -68,6 +68,12 @@ export default {
   },
   created() {
     this.discoverTokens();
+    this.timer = setInterval(() => {
+      this.discoverTokens();
+    }, 10000);
+  },
+  beforeUnmount() {
+    clearInterval(this.timer);
   },
 };
 </script>
