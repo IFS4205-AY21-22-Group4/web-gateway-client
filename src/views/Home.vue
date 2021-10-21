@@ -36,7 +36,13 @@ export default {
           }
         )
         .then((response) => {
-          this.gateways = [...this.gateways, response.data];
+          if (response.status === 204) {
+            alert(
+              "You have reached the maximum limit for number of gateways. The current limit is 4."
+            );
+          } else {
+            this.gateways = [...this.gateways, response.data];
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -50,12 +56,18 @@ export default {
           },
         })
         .then((response) => {
-          this.gateways = this.gateways.filter((gateway) => {
-            return gateway.gateway_id !== response.data.gateway_id;
-          });
+          if (response.status === 204) {
+            alert(response.data);
+          } else {
+            this.gateways = this.gateways.filter((gateway) => {
+              return gateway.gateway_id !== response.data.gateway_id;
+            });
+          }
         })
         .catch((error) => {
-          console.log(error);
+          if (error.response.status === 405) {
+            alert(error.response.data);
+          }
         });
     },
     fetchGateways() {
@@ -71,8 +83,8 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          // token probably expired
           if (error.response.status === 401) {
+            // token probably expired
             sessionStorage.removeItem("token");
             this.$router.push({ name: "Login" });
           }

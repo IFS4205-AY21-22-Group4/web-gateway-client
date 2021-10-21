@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse">
           <div class="navbar-nav">
             <router-link :to="{ name: 'Home' }" class="nav-link" exact
-              >Home</router-link
+              >Gateways</router-link
             >
           </div>
         </div>

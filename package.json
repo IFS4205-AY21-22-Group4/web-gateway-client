@@ -4,13 +4,15 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "backend": "json-server --watch db.json --port 5000"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@abandonware/noble": "^1.9.2-14",
     "axios": "^0.21.4",
     "bootstrap": "^5.1.1",
     "core-js": "^3.18.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.2"

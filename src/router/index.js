@@ -14,7 +14,7 @@ const routes = [
         }
     },
     {
-        path: "/discovery",
+        path: "/discovery/:gateway_id",
         name: "Discovery",
         component: Discovery,
         meta : {
