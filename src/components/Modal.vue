@@ -39,7 +39,10 @@
               <button type="submit" class="btn btn-primary w-100 mb-2">
                 Verify & Check-in
               </button>
-              <p class="text-center text-danger" v-if="inactiveToken">
+              <p class="text-center text-danger" v-if="authenticationFailed">
+                Invalid Token PIN entered, please try again.
+              </p>
+              <p class="text-center text-warning" v-if="inactiveToken">
                 Your token is inactive. Please visit a Token Issuing Centre for
                 a new token.
               </p>
@@ -60,6 +63,8 @@
 </template>
 
 <script>
+import { gatewayAPI } from "../axios-api";
+
 export default {
   name: "Modal",
   props: {
@@ -71,11 +76,49 @@ export default {
       token_pin: "",
       inactiveToken: false,
       unvaccinated: false,
+      authenticationFailed: false,
     };
   },
   methods: {
     verifyToken() {
-      console.log("TODO verify token");
+      gatewayAPI
+        .post(
+          "/api/v1/gatewayrecord/",
+          {
+            token_uuid: this.token.token_uuid,
+            gateway_id: this.$route.params.gateway_id,
+            pin: this.token_pin,
+          },
+          {
+            headers: {
+              Authorization: `Token ${sessionStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
+          if (response.data === "Added gateway record") {
+            // Success, update status and close modal
+            this.authenticationFailed = false;
+            this.token_pin = "";
+            this.status = "Vaccinated";
+            setInterval(() => {
+              this.$router.go(0);
+            }, 2000);
+          } else if (response.data === "Invalid PIN entered") {
+            this.authenticationFailed = true;
+            this.token_pin = "";
+          } else if (response.data === "Token inactive") {
+            this.inactiveToken = true;
+          } else if (response.data === "Person is not vaccinated") {
+            this.unvaccinated = true;
+          } else {
+            alert("Something went wrong. Please contact an administrator.");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

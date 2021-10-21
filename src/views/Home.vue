@@ -36,7 +36,7 @@ export default {
           }
         )
         .then((response) => {
-          if (response.data === "Maximum number of gateways") {
+          if (response.status === 204) {
             alert(
               "You have reached the maximum limit for number of gateways. The current limit is 4."
             );
@@ -56,7 +56,7 @@ export default {
           },
         })
         .then((response) => {
-          if (response.data === "No gateways available to delete") {
+          if (response.status === 204) {
             alert(response.data);
           } else {
             this.gateways = this.gateways.filter((gateway) => {
@@ -65,7 +65,9 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          if (error.response.status === 405) {
+            alert(error.response.data);
+          }
         });
     },
     fetchGateways() {
