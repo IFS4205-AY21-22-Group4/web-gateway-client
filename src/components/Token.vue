@@ -1,8 +1,14 @@
 <template>
   <td scope="row">{{ index + 1 }}</td>
-  <td>{{ identity }}</td>
+  <td>{{ token.nric }}</td>
   <td>
-    <Button class="btn btn-outline-success" text="Check-in" />
+    <Button
+      class="btn btn-outline-success"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+      @click="$emit('verify-token', token)"
+      text="Check-in"
+    />
   </td>
 </template>
 
@@ -15,17 +21,13 @@ export default {
     token: Object,
     index: Number,
   },
-  data() {
-    return {
-      identity: "",
-    };
-  },
   components: {
     Button,
   },
   created() {
+    //this.getIdentity();
     // to replace with token logic
-    this.identity = "S****152G";
   },
+  emits: ["verify-token"],
 };
 </script>
