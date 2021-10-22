@@ -97,21 +97,16 @@ export default {
           unit_no: this.unit,
         })
         .then((response) => {
-          if (typeof response.data === "object") {
-            if (response.data[Object.keys(response.data)[0]][0] == "A valid integer is required.") {
-              this.failReason = "Invalid postal code";
-            } else {
-              this.failReason = response.data[Object.keys(response.data)[0]][0];
-            }
-            this.authenticationFailed = true;
-            console.log(response.data[Object.keys(response.data)[0]][0]);
-          }else if (response.data = "Valid") {
-            this.authenticationFailed = false;
-            this.$router.push({ name: "Login" });
-          }
+          this.authenticationFailed = false;
+          this.$router.push({ name: "Login" });
         })
         .catch((error) => {
-          console.log(error);
+          this.authenticationFailed = true;
+          if (Object.keys(error.response.data)[0] == "postal_code") {
+            this.failReason = "Invalid postal code"
+          } else {
+            this.failReason = error.response.data[Object.keys(error.response.data)[0]][0];
+          }
         });
     },
   },
