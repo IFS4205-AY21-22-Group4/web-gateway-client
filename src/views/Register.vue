@@ -107,6 +107,8 @@ export default {
           } else {
             this.failReason = error.response.data[Object.keys(error.response.data)[0]][0];
           }
+          this.password = "";
+          this.password2 = "";
         });
     },
   },
