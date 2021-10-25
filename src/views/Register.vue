@@ -98,7 +98,7 @@ export default {
         })
         .then((response) => {
           this.authenticationFailed = false;
-          this.$router.push({ name: "Login" });
+          this.$router.push({ name: "Activation" });
         })
         .catch((error) => {
           this.authenticationFailed = true;
@@ -111,8 +111,6 @@ export default {
           this.password2 = "";
         });
     },
-  },
-  created() {
   },
 };
 </script>
