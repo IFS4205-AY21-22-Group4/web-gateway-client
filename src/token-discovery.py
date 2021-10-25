@@ -1,7 +1,6 @@
 from adafruit_ble import BLERadio
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.gmsservice import GMS
-import platform
 import json
 
 
@@ -19,12 +18,9 @@ def discover_tokens():
     for entry in radio.start_scan(ProvideServicesAdvertisement, timeout=2, minimum_rssi=-80):
         addr = entry.address
         name = entry.complete_name
-        if addr not in tokens and name != None and "IFS4205" in name:
-            if platform.system() == 'Darwin':
-                addr = connect_token(entry, radio)
-                tokens.add(addr)
-            else:
-                tokens.add(addr.string)
+        if addr.string not in tokens and name != None and "IFS4205" in name:
+            addr = connect_token(entry, radio)
+            tokens.add(addr)
 
     return tokens
 
