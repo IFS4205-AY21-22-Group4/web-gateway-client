@@ -3,6 +3,8 @@ import Home from "@/views/Home.vue";
 import Discovery from "@/views/Discovery.vue";
 import Login from "@/views/Login.vue";
 import Logout from "@/views/Logout.vue";
+import Register from "@/views/Register.vue";
+import Activation from "@/views/Activation.vue";
 
 const routes = [
     {
@@ -41,7 +43,17 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ "../views/About.vue")
-    }
+    },
+    {
+        path: "/register",
+        name: "Register",
+        component: Register
+    },
+    {
+        path: "/Activation",
+        name: "Activation",
+        component: Activation
+    },
 ];
 
 const router = createRouter({
