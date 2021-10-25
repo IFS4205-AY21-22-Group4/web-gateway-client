@@ -4,6 +4,7 @@ import Discovery from "@/views/Discovery.vue";
 import Login from "@/views/Login.vue";
 import Logout from "@/views/Logout.vue";
 import Register from "@/views/Register.vue";
+import Activation from "@/views/Activation.vue";
 
 const routes = [
     {
@@ -47,7 +48,12 @@ const routes = [
         path: "/register",
         name: "Register",
         component: Register
-    }
+    },
+    {
+        path: "/Activation",
+        name: "Activation",
+        component: Activation
+    },
 ];
 
 const router = createRouter({
