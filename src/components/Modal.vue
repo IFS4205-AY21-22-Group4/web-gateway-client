@@ -100,14 +100,12 @@ export default {
           if (response.data === "Added gateway record") {
             // Success, update status and close modal
             this.authenticationFailed = false;
-            this.token_pin = "";
             this.status = "Vaccinated";
             setInterval(() => {
               this.$router.go(0);
             }, 2000);
           } else if (response.data === "Invalid PIN entered") {
             this.authenticationFailed = true;
-            this.token_pin = "";
           } else if (response.data === "Token inactive") {
             this.inactiveToken = true;
           } else if (response.data === "Person is not vaccinated") {
@@ -115,6 +113,7 @@ export default {
           } else {
             alert("Something went wrong. Please contact an administrator.");
           }
+          this.token_pin = "";
         })
         .catch((error) => {
           console.log(error);
