@@ -27,7 +27,7 @@
         </p>
         <p class="text-center">
           New user?
-          <router-link :to="{ name: 'Login' }" exact>
+          <router-link :to="{ name: 'Register' }" exact>
             Click here to sign up.
           </router-link>
         </p>
@@ -63,8 +63,12 @@ export default {
         })
         .catch((error) => {
           console.log("Login failed");
-          this.authenticationFailed = true;
-          this.password = "";
+          if (error.response.status === 400) {
+            this.authenticationFailed = true;
+            this.password = "";
+          } else if (error.response.status === 401) {
+            this.$router.push({ name: "Activation" });
+          }
         });
     },
   },

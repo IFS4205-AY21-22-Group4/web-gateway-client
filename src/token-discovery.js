@@ -7,7 +7,7 @@ app.use(cors());
 app.options("http://localhost:8080", cors());
 
 app.get("/discover_tokens", (req, res, next) => {
-    exec("python3 src/token-discovery.py", (error, stdout, stderr) => {
+    exec("python3 token-discovery.py", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
