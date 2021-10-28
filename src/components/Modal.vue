@@ -18,7 +18,7 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body" v-if="token">
+        <div :class="modalColor" class="modal-body" v-if="token">
           <div class="modal-body">
             <p>Please enter your Token PIN to verify your identity.</p>
             <p><strong>Identity</strong>: {{ token.nric }}</p>
@@ -46,13 +46,6 @@
                 Your token is inactive. Please visit a Token Issuing Centre for
                 a new token.
               </p>
-              <p
-                class="text-center text-danger"
-                v-if="unvaccinated && !inactiveToken"
-              >
-                You are unvaccinated and not allowed to enter the premises.
-                Please leave immediately.
-              </p>
             </form>
           </div>
         </div>
@@ -77,6 +70,7 @@ export default {
       inactiveToken: false,
       unvaccinated: false,
       authenticationFailed: false,
+      modalColor: "bg-body",
     };
   },
   methods: {
@@ -97,24 +91,32 @@ export default {
         )
         .then((response) => {
           console.log(response.data);
-          if (response.data === "Added gateway record") {
-            // Success, update status and close modal
-            this.authenticationFailed = false;
-            this.token_pin = "";
-            this.status = "Vaccinated";
+          if (response.data === "Invalid token or gateway") {
+            this.inactiveToken = true;
             setInterval(() => {
               this.$router.go(0);
             }, 2000);
           } else if (response.data === "Invalid PIN entered") {
             this.authenticationFailed = true;
-            this.token_pin = "";
-          } else if (response.data === "Token inactive") {
-            this.inactiveToken = true;
           } else if (response.data === "Person is not vaccinated") {
+            this.status = "Failure";
+            this.modalColor = "bg-danger";
             this.unvaccinated = true;
+            setInterval(() => {
+              this.$router.go(0);
+            }, 2000);
+          } else if (response.data === "Added gateway record") {
+            // Success, update status and close modal
+            this.authenticationFailed = false;
+            this.modalColor = "bg-success";
+            this.status = "Success";
+            setInterval(() => {
+              this.$router.go(0);
+            }, 2000);
           } else {
             alert("Something went wrong. Please contact an administrator.");
           }
+          this.token_pin = "";
         })
         .catch((error) => {
           console.log(error);

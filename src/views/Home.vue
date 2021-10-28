@@ -57,7 +57,7 @@ export default {
         })
         .then((response) => {
           if (response.status === 204) {
-            alert(response.data);
+            alert("No gateways to delete.");
           } else {
             this.gateways = this.gateways.filter((gateway) => {
               return gateway.gateway_id !== response.data.gateway_id;
