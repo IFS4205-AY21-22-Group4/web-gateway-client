@@ -57,7 +57,9 @@ export default {
         })
         .then((response) => {
           if (response.status === 204) {
-            alert("No gateways to delete.");
+            alert(
+              "No gateways to delete or gateway already in use for contact tracing."
+            );
           } else {
             this.gateways = this.gateways.filter((gateway) => {
               return gateway.gateway_id !== response.data.gateway_id;
@@ -65,9 +67,7 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.status === 405) {
-            alert(error.response.data);
-          }
+          console.log(error);
         });
     },
     fetchGateways() {
