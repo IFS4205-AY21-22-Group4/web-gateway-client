@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const gatewayAPI = axios.create({
-    baseURL: "http://ifs4205-ay2122-g4-vm2-i.comp.nus.edu.sg",
+    baseURL: "https://ifs4205-ay2122-g4-vm2.comp.nus.edu.sg",
     timeout: 5000,
 });
 
