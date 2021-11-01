@@ -9,13 +9,13 @@
 * 2 separate terminal console for running the webservers
 
 1. Clone this repository
-1. Start the token discovery server
+2. Start the token discovery server
 
 ```bash
 node src/token-discovery.js
 ```
 
-1. Start the Vue Local Webserver
+3. Start the Vue Local Webserver
 
 ```bash
 npm install
@@ -24,7 +24,7 @@ npm install -g serve
 serve -s dist
 ```
 
-1. Access `http://localhost:5000` from a browser
+4. Access the web application at `http://localhost:5000` from a browser
 
  Known working browser:
  
