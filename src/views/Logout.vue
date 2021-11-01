@@ -25,7 +25,6 @@ export default {
         })
         .catch((error) => {
           console.log("Logout failed");
-          console.log(error);
         })
         .finally(() => {
           this.$router.push({ name: "Login" });

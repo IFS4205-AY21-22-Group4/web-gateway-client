@@ -43,9 +43,6 @@ export default {
           } else {
             this.gateways = [...this.gateways, response.data];
           }
-        })
-        .catch((error) => {
-          console.log(error);
         });
     },
     removeGateway() {
@@ -65,9 +62,6 @@ export default {
               return gateway.gateway_id !== response.data.gateway_id;
             });
           }
-        })
-        .catch((error) => {
-          console.log(error);
         });
     },
     fetchGateways() {
@@ -78,11 +72,9 @@ export default {
           },
         })
         .then((response) => {
-          console.log("Received data from gateway API");
           this.gateways = response.data;
         })
         .catch((error) => {
-          console.log(error);
           if (error.response.status === 401) {
             // token probably expired
             sessionStorage.removeItem("token");
