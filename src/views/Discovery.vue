@@ -44,26 +44,17 @@ export default {
           },
         })
         .then((response) => {
-          //console.log("Received data from local API");
           this.tokens.push(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
         });
     },
     discoverTokens() {
-      localAPI
-        .get("/discover_tokens", {})
-        .then((response) => {
-          this.tokens = [];
-          var tokens = response.data;
-          for (var i = 0; i < tokens.length; i++) {
-            this.checkToken(tokens[i]);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      localAPI.get("/discover_tokens", {}).then((response) => {
+        this.tokens = [];
+        var tokens = response.data;
+        for (var i = 0; i < tokens.length; i++) {
+          this.checkToken(tokens[i]);
+        }
+      });
     },
   },
   created() {
